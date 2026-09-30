@@ -1,8 +1,8 @@
 <div align="center">
 
-# Game Verse
+# GameVerse
 
-**Game Verse is a game discovery app using React, TypeScript, and React Query. It lets users browse, search, and filter games with a modern UI and external API integration.**
+**GameVerse is a game discovery app using React, TypeScript, and React Query. It lets users browse, search, and filter games with a modern UI and external API integration.**
 
 [Report a Bug](https://github.com/Shaz-gill/react-typescript-game-verse/issues) · [Request a Feature](https://github.com/Shaz-gill/react-typescript-game-verse/issues)
 
@@ -34,7 +34,7 @@
 
 ## Overview
 
-Game Verse lets users browse, search, and filter thousands of video games using data from the [RAWG.io API](https://rawg.io/apidocs), one of the largest gaming databases available. Each game has a dedicated detail page with descriptions, attributes, trailers, screenshots, and store links.
+GameVerse lets users browse, search, and filter thousands of video games using data from the [RAWG.io API](https://rawg.io/apidocs), one of the largest gaming databases available. Each game has a dedicated detail page with descriptions, attributes, trailers, screenshots, and store links.
 
 The project demonstrates a production-style frontend architecture: server state is managed by TanStack React Query, client state by Zustand, and the interface is built with Chakra UI for an accessible, responsive experience with light and dark modes.
 
@@ -132,7 +132,7 @@ The project demonstrates a production-style frontend architecture: server state 
 
 ## Getting Started
 
-Follow these steps to run Game Verse on your machine.
+Follow these steps to run GameVerse on your machine.
 
 ### Prerequisites
 
