@@ -2,9 +2,9 @@
 
 # Game Verse
 
-**A modern game discovery platform built with React, TypeScript, and the RAWG.io API.**
+**Game Verse is a game discovery app using React, TypeScript, and React Query. It lets users browse, search, and filter games with a modern UI and external API integration.**
 
-[Live Demo](https://gameverse.shahzadtariq.com/) · [Report a Bug](https://github.com/Shaz-gill/react-typescript-game-verse/issues) · [Request a Feature](https://github.com/Shaz-gill/react-typescript-game-verse/issues)
+[Report a Bug](https://github.com/Shaz-gill/react-typescript-game-verse/issues) · [Request a Feature](https://github.com/Shaz-gill/react-typescript-game-verse/issues)
 
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.9-3178C6?logo=typescript&logoColor=white)
@@ -132,47 +132,83 @@ The project demonstrates a production-style frontend architecture: server state 
 
 ## Getting Started
 
+Follow these steps to run Game Verse on your machine.
+
 ### Prerequisites
 
-- Node.js 16 or higher
-- npm
+| Requirement | Version        | Check with       |
+| ----------- | -------------- | ---------------- |
+| Node.js     | 16 or higher   | `node --version` |
+| npm         | 8 or higher    | `npm --version`  |
+| Git         | Any recent     | `git --version`  |
+| RAWG API key | Free account  | See step 3       |
 
-### Installation
+### Step 1: Clone the repository
 
 ```sh
 git clone https://github.com/Shaz-gill/react-typescript-game-verse.git
 cd react-typescript-game-verse
+```
+
+### Step 2: Install dependencies
+
+```sh
 npm install
 ```
 
-### API Key
+### Step 3: Get a RAWG API key
 
-The app requires a RAWG API key. Create a free account at [rawg.io/apidocs](https://rawg.io/apidocs) to obtain one, then set it in `src/services/api-clients.ts`:
+1. Create a free account at [rawg.io/apidocs](https://rawg.io/apidocs).
+2. Copy your API key from the dashboard.
+
+### Step 4: Add the API key
+
+Open `src/services/api-clients.ts` and replace the value of `key`:
 
 ```ts
-params: {
-  key: "your_api_key_here",
-},
+const axiosInstance = axios.create({
+  baseURL: "https://api.rawg.io/api/",
+  params: {
+    key: "your_api_key_here",
+  },
+});
 ```
 
-> The key is currently configured in source rather than read from an environment variable. See [Security Considerations](#security-considerations) and the [Roadmap](#roadmap).
+> The key is currently set in source rather than read from an environment variable, so do not commit your own key to a public repository. See [Security Considerations](#security-considerations) and the [Roadmap](#roadmap).
 
-### Run Locally
+### Step 5: Start the development server
 
 ```sh
 npm run dev
 ```
 
-The development server starts at `http://localhost:5173`.
+Open [http://localhost:5173](http://localhost:5173). The page reloads automatically when you edit files.
 
-### Build for Production
+### Step 6: Verify the setup
+
+- The home page shows a grid of game cards.
+- Selecting a genre or platform updates the grid.
+- Clicking a card opens its detail page.
+
+If the grid shows a "Couldn't load games" message, check that your API key is valid and that you are online.
+
+### Build for production
 
 ```sh
-npm run build
-npm run preview
+npm run build     # type-check with tsc, then build into dist/
+npm run preview   # serve the production build locally
 ```
 
-The production build is written to `dist/` and can be served by any static hosting provider.
+The output in `dist/` can be served by any static hosting provider.
+
+### Troubleshooting
+
+| Problem                          | Fix                                                                 |
+| -------------------------------- | ------------------------------------------------------------------- |
+| `npm install` fails              | Confirm Node.js is 16 or higher, then delete `node_modules` and retry |
+| Port 5173 already in use         | Stop the other process, or run `npm run dev -- --port 3000`         |
+| "Couldn't load games" error      | Check the API key in `src/services/api-clients.ts` and your network |
+| Build fails with type errors     | Run `npm run build` and fix the errors `tsc` reports                |
 
 ---
 
