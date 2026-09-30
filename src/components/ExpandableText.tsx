@@ -1,5 +1,6 @@
-import { Button, Text } from "@chakra-ui/react";
+import { Box, Button, Icon, Text } from "@chakra-ui/react";
 import { useState } from "react";
+import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 
 interface Props {
   children: string;
@@ -12,23 +13,34 @@ const ExpandableText = ({ children }: Props) => {
 
   if (!children) return null;
 
-  if (children.length <= limit) return <Text>{children}</Text>;
+  if (children.length <= limit)
+    return (
+      <Text whiteSpace="pre-line" lineHeight="tall">
+        {children}
+      </Text>
+    );
 
-  const summary = expanded ? children : children.substring(0, limit) + "...";
+  const summary = expanded
+    ? children
+    : children.substring(0, limit).trimEnd() + "...";
 
   return (
-    <Text>
-      {summary}
+    <Box>
+      <Text whiteSpace="pre-line" lineHeight="tall">
+        {summary}
+      </Text>
       <Button
         onClick={() => setExpanded(!expanded)}
-        size="xs"
-        fontWeight="bold"
+        size="sm"
+        variant="outline"
         colorScheme="yellow"
-        marginLeft={1}
+        borderRadius="full"
+        marginTop={4}
+        rightIcon={<Icon as={expanded ? BsChevronUp : BsChevronDown} />}
       >
-        {expanded ? "Show Less" : "Read More"}
+        {expanded ? "Show less" : "Read more"}
       </Button>
-    </Text>
+    </Box>
   );
 };
 

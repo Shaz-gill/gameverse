@@ -8,8 +8,15 @@ interface Props {
 
 export const DefinationItem = ({ term, children }: Props) => {
   return (
-    <Box marginY={5}>
-      <Heading as="dt" fontSize="md" color="gray.600">
+    <Box>
+      <Heading
+        as="dt"
+        fontSize="xs"
+        textTransform="uppercase"
+        letterSpacing="wider"
+        color="gray.500"
+        marginBottom={1}
+      >
         {term}
       </Heading>
       <dd>{children}</dd>

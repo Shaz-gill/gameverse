@@ -21,7 +21,17 @@ const GameScreenshots = ({ gameId }: Props) => {
       marginTop={5}
     >
       {data?.results.map((file) => (
-        <Image key={file.id} src={file.image} />
+        <Image
+          key={file.id}
+          src={file.image}
+          loading="lazy"
+          width="100%"
+          aspectRatio={16 / 9}
+          objectFit="cover"
+          borderRadius="lg"
+          transition="transform 0.2s"
+          _hover={{ transform: "scale(1.03)" }}
+        />
       ))}
     </SimpleGrid>
   );

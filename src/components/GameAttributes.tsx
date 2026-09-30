@@ -9,7 +9,7 @@ interface Props {
 
 export const GameAttributes = ({ game }: Props) => {
   return (
-    <SimpleGrid columns={2} as="dl">
+    <SimpleGrid columns={2} spacing={6} marginY={5} as="dl">
       <DefinationItem term="Platforms">
         {game.parent_platforms?.map(({ platform }) => (
           <Text key={platform.id}>{platform.name}</Text>
@@ -26,11 +26,41 @@ export const GameAttributes = ({ game }: Props) => {
         ))}
       </DefinationItem>
 
+      {game.developers && game.developers.length > 0 && (
+        <DefinationItem term="Developers">
+          {game.developers.map((developer) => (
+            <Text key={developer.id}>{developer.name}</Text>
+          ))}
+        </DefinationItem>
+      )}
+
       <DefinationItem term="Publishers">
         {game.publishers?.map((publisher) => (
           <Text key={publisher.id}>{publisher.name}</Text>
         ))}
       </DefinationItem>
+      {game.esrb_rating && (
+        <DefinationItem term="Age Rating">
+          <Text>{game.esrb_rating.name}</Text>
+        </DefinationItem>
+      )}
+
+      {game.rating ? (
+        <DefinationItem term="Community Rating">
+          <Text>
+            {game.rating.toFixed(1)} / 5
+            {game.ratings_count
+              ? ` (${game.ratings_count.toLocaleString()} ratings)`
+              : ""}
+          </Text>
+        </DefinationItem>
+      ) : null}
+
+      {game.playtime ? (
+        <DefinationItem term="Average Playtime">
+          <Text>{game.playtime} hours</Text>
+        </DefinationItem>
+      ) : null}
     </SimpleGrid>
   );
 };
