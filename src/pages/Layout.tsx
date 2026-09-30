@@ -6,7 +6,12 @@ const Layout = () => {
   return (
     <>
       <NavBar />
-      <Box padding={5}>
+      <Box
+        maxW="1600px"
+        mx="auto"
+        px={{ base: 4, md: 6 }}
+        py={5}
+      >
         <Outlet />
       </Box>
     </>

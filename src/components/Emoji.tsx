@@ -15,24 +15,20 @@ const Emoji = ({ rating }: Props) => {
     3: {
       src: meh,
       alt: "meh",
-      boxSize: "20px",
+      boxSize: "22px",
     },
     4: {
       src: thumbsUp,
       alt: "recommended",
-      boxSize: "20px",
+      boxSize: "22px",
     },
     5: {
       src: bullsEye,
       alt: "exceptional",
-      boxSize: "30px",
+      boxSize: "22px",
     },
   };
-  return (
-    <div>
-      <Img {...emojiMap[rating]} marginTop={1} />
-    </div>
-  );
+  return <Img {...emojiMap[rating]} flexShrink={0} />;
 };
 
 export default Emoji;

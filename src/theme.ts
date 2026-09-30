@@ -6,6 +6,26 @@ const config: ThemeConfig = {
 
 const theme = extendTheme({
   config,
+  styles: {
+    global: (props: { colorMode: string }) => ({
+      body: {
+        // Light mode uses warm paper and ink to match the logo and navbar
+        bg: props.colorMode === "light" ? "#ECE9E2" : undefined,
+        color: props.colorMode === "light" ? "#16181D" : undefined,
+      },
+    }),
+  },
+  components: {
+    Button: {
+      variants: {
+        // Default grey buttons vanish against the light-mode paper background
+        solid: (props: { colorMode: string; colorScheme: string }) =>
+          props.colorScheme === "gray" && props.colorMode === "light"
+            ? { bg: "white", _hover: { bg: "blackAlpha.100" } }
+            : {},
+      },
+    },
+  },
   colors: {
     gray: {
       50: "#f9f9f9",

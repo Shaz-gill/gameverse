@@ -1,10 +1,13 @@
-import { SimpleGrid, Spinner, Text } from "@chakra-ui/react";
+import { SimpleGrid, Spinner } from "@chakra-ui/react";
 import React from "react";
+import { BsSearch, BsWifiOff } from "react-icons/bs";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useGames from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardContainer from "./GameCardContainer";
+import useGameQueryStore from "../store";
 import GameCardSkeleton from "./GameCardSkeleton";
+import StatusMessage from "./StatusMessage";
 
 const GameGrid = () => {
   const {
@@ -14,14 +17,41 @@ const GameGrid = () => {
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
+    refetch,
   } = useGames();
+  const gameQuery = useGameQueryStore((s) => s.gameQuery);
+  const resetQuery = useGameQueryStore((s) => s.resetQuery);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  if (error) return <Text>{error.message}</Text>;
+  if (error)
+    return (
+      <StatusMessage
+        icon={BsWifiOff}
+        title="Couldn't load games"
+        hint={`${error.message}. Check your connection and try again.`}
+        actionLabel="Try again"
+        onAction={() => refetch()}
+      />
+    );
 
   // For calculating total number of games
   const fetchGamesCount =
     data?.pages.reduce((total, page) => total + page.results.length, 0) || 0;
+
+  if (!isLoading && fetchGamesCount === 0)
+    return (
+      <StatusMessage
+        icon={BsSearch}
+        title={
+          gameQuery.searchText
+            ? `No games found for "${gameQuery.searchText}"`
+            : "No games match these filters"
+        }
+        hint="Check the spelling, or clear your search and filters to see every game."
+        actionLabel="Clear search and filters"
+        onAction={resetQuery}
+      />
+    );
 
   return (
     <>
@@ -31,6 +61,8 @@ const GameGrid = () => {
         hasMore={!!hasNextPage}
         next={() => fetchNextPage()}
         loader={<Spinner />}
+        // Default is overflow:auto, which would clip the enlarged hovered card
+        style={{ overflow: "visible" }}
       >
         <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} spacing={6}>
           {isLoading &&

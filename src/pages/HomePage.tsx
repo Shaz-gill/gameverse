@@ -1,4 +1,5 @@
 import { Box, Flex, Grid, GridItem, Show } from "@chakra-ui/react";
+import GenreDrawerButton from "../components/GenreDrawerButton";
 import GameGrid from "../components/GameGrid";
 import GameHeading from "../components/GameHeading";
 import GenreList from "../components/GenreList";
@@ -14,8 +15,9 @@ const HomePage = () => {
       }}
       templateColumns={{
         base: "1fr",
-        lg: "200px 1fr",
+        lg: "220px 1fr",
       }}
+      columnGap={{ lg: 10, xl: 14 }}
     >
       <Show above="lg">
         <GridItem area="aside">
@@ -25,10 +27,11 @@ const HomePage = () => {
       <GridItem area="main">
         <Box>
           <GameHeading />
-          <Flex marginBottom={5}>
-            <Box marginRight={5}>
-              <PlatformDropdown />
-            </Box>
+          <Flex marginBottom={5} gap={3} wrap="wrap">
+            <Show below="lg">
+              <GenreDrawerButton />
+            </Show>
+            <PlatformDropdown />
             <SortSelector />
           </Flex>
         </Box>

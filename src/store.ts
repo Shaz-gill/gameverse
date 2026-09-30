@@ -10,9 +10,10 @@ interface GameQuery {
 interface GameQueryStore {
   gameQuery: GameQuery;
   setSearchText: (searchText: string) => void;
-  setGenreId: (genreId: number) => void;
-  setPlatformId: (platformId: number) => void;
+  setGenreId: (genreId?: number) => void;
+  setPlatformId: (platformId?: number) => void;
   setSortOrder: (sortOrder: string) => void;
+  resetQuery: () => void;
 }
 
 // A kind of a custom hook
@@ -26,6 +27,7 @@ const useGameQueryStore = create<GameQueryStore>((set) => ({
     set((store) => ({ gameQuery: { ...store.gameQuery, platformId } })),
   setSortOrder: (sortOrder) =>
     set((store) => ({ gameQuery: { ...store.gameQuery, sortOrder } })),
+  resetQuery: () => set(() => ({ gameQuery: {} })),
 }));
 
 export default useGameQueryStore;
