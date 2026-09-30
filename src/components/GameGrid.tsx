@@ -1,4 +1,4 @@
-import { SimpleGrid, Spinner } from "@chakra-ui/react";
+import { SimpleGrid } from "@chakra-ui/react";
 import React from "react";
 import { BsSearch, BsWifiOff } from "react-icons/bs";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -21,7 +21,7 @@ const GameGrid = () => {
   } = useGames();
   const gameQuery = useGameQueryStore((s) => s.gameQuery);
   const resetQuery = useGameQueryStore((s) => s.resetQuery);
-  const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const skeletons = Array.from({ length: 12 }, (_, i) => i + 1);
 
   if (error)
     return (
@@ -60,7 +60,8 @@ const GameGrid = () => {
         dataLength={fetchGamesCount}
         hasMore={!!hasNextPage}
         next={() => fetchNextPage()}
-        loader={<Spinner />}
+        // Next-page skeletons are rendered inside the grid so they align with the cards
+        loader={null}
         // Default is overflow:auto, which would clip the enlarged hovered card
         style={{ overflow: "visible" }}
       >
@@ -81,6 +82,13 @@ const GameGrid = () => {
               ))}
             </React.Fragment>
           ))}
+
+          {isFetchingNextPage &&
+            skeletons.map((skeleton) => (
+              <GameCardContainer key={`next-${skeleton}`}>
+                <GameCardSkeleton />
+              </GameCardContainer>
+            ))}
         </SimpleGrid>
       </InfiniteScroll>
       {/* DON'T DELETE */}

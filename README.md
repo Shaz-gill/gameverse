@@ -50,7 +50,7 @@ The project demonstrates a production-style frontend architecture: server state 
 ### Filtering and Sorting
 
 <!-- Add screenshot: genre list, platform dropdown, and sort selector in use -->
-![Filtering and Sorting](docs/screenshots/filters.png)
+![Filtering and Sorting](docs/screenshots/filtering-and-sorting.png)
 
 ### Game Detail Page
 

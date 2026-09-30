@@ -125,13 +125,21 @@ const GenreList = ({ onSelect, inDrawer = false }: ListProps) => {
             top: "88px",
             maxH: "calc(100vh - 104px)",
             overflowY: "auto",
-            ml: -3,
             pr: 3,
             pb: 4,
           })}
     >
       {!inDrawer && (
-        <Heading fontSize="xl" fontWeight="800" mb={3} px={3}>
+        <Heading
+          as="h2"
+          fontSize="xs"
+          fontWeight="700"
+          letterSpacing="0.08em"
+          textTransform="uppercase"
+          color="gray.500"
+          mb={2}
+          px={3}
+        >
           Genres
         </Heading>
       )}
