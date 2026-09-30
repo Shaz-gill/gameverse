@@ -4,7 +4,7 @@
 
 **GameVerse is a game discovery app using React, TypeScript, and React Query. It lets users browse, search, and filter games with a modern UI and external API integration.**
 
-[Report a Bug](https://github.com/Shaz-gill/react-typescript-game-verse/issues) · [Request a Feature](https://github.com/Shaz-gill/react-typescript-game-verse/issues)
+[Live Demo](https://gameverse.shahzadtariq.com/) · [Report a Bug](https://github.com/Shaz-gill/react-typescript-game-verse/issues) · [Request a Feature](https://github.com/Shaz-gill/react-typescript-game-verse/issues)
 
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.9-3178C6?logo=typescript&logoColor=white)
@@ -35,6 +35,8 @@
 ## Overview
 
 GameVerse lets users browse, search, and filter thousands of video games using data from the [RAWG.io API](https://rawg.io/apidocs), one of the largest gaming databases available. Each game has a dedicated detail page with descriptions, attributes, trailers, screenshots, and store links.
+
+**Live demo:** [gameverse.shahzadtariq.com](https://gameverse.shahzadtariq.com/).
 
 The project demonstrates a production-style frontend architecture: server state is managed by TanStack React Query, client state by Zustand, and the interface is built with Chakra UI for an accessible, responsive experience with light and dark modes.
 
@@ -242,9 +244,9 @@ src/
 
 ## Security Considerations
 
-The RAWG API key is currently included in the client bundle. This is acceptable for a demo project but is not suitable for production. For a production deployment:
+The RAWG API key is currently included in the client bundle, so it is visible to anyone using the live site. This is acceptable for a demo project but is not suitable for production. To harden it:
 
-- Proxy all RAWG requests through a backend service or serverless function.
+- Proxy all RAWG requests through a backend service.
 - Store the API key as a server-side environment variable, never exposing it to the client.
 - Add rate limiting and request validation on the server layer.
 
@@ -255,7 +257,7 @@ The RAWG API key is currently included in the client bundle. This is acceptable 
 - [ ] Load the API key from a `VITE_RAWG_API_KEY` environment variable
 - [ ] Debounce search input to reduce API calls
 - [ ] Add automated tests and linting
-- [ ] Add a backend proxy for API requests
+- [ ] Add a backend proxy so the API key stays server-side
 
 ---
 
