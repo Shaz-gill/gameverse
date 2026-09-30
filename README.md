@@ -256,7 +256,7 @@ The RAWG API key is currently included in the client bundle, so it is visible to
 
 - [ ] Load the API key from a `VITE_RAWG_API_KEY` environment variable
 - [ ] Debounce search input to reduce API calls
-- [ ] Add automated tests and linting
+- [ ] Add automated tests and a linter
 - [ ] Add a backend proxy so the API key stays server-side
 
 ---

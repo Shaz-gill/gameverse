@@ -34,6 +34,11 @@ jobs:
       - name: Build the website
         run: npm run build
 
+      - name: Show what GitHub sends
+        run: |
+          TOKEN=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sts.amazonaws.com" | jq -r .value)
+          echo "$TOKEN" | cut -d. -f2 | python3 -c "import sys,base64,json;s=sys.stdin.read().strip();s+='='*(-len(s)%4);d=json.loads(base64.urlsafe_b64decode(s));print('sub =',d['sub']);print('aud =',d['aud'])"
+
       - name: Log in to AWS
         uses: aws-actions/configure-aws-credentials@v4
         with:

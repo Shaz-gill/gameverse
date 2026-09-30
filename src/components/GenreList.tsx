@@ -136,7 +136,7 @@ const GenreList = ({ onSelect, inDrawer = false }: ListProps) => {
           fontWeight="700"
           letterSpacing="0.08em"
           textTransform="uppercase"
-          color="gray.500"
+          color={signal}
           mb={2}
           px={3}
         >
