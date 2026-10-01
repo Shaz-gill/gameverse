@@ -1,53 +1,64 @@
+# Name shown in the "Actions" tab on GitHub
 name: Deploy Gameverse to AWS
 
+# When this workflow runs
 on:
+  # Every time code is pushed to the master branch
   push:
     branches: [master]
+  # Also lets you start it by hand from the Actions tab
   workflow_dispatch:
 
+# Permissions given to this workflow
 permissions:
+  # Needed to log in to AWS without storing AWS keys (OIDC)
   id-token: write
+  # Only read access to the repository code
   contents: read
 
+# Settings used in the steps below
 env:
-  AWS_REGION: ap-southeast-2
-  S3_BUCKET: gameverse.shahzadtariq.com
-  BUILD_DIR: dist
+  AWS_REGION: ap-southeast-2        # AWS region of the S3 bucket
+  S3_BUCKET: gameverse.shahzadtariq.com  # Bucket where the website files live
+  BUILD_DIR: dist                   # Folder created by "npm run build"
 
 jobs:
   deploy:
+    # The type of machine that runs the steps
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Download the repository code onto the machine
       - name: Get the code
         uses: actions/checkout@v4
 
+      # 2. Install Node.js (and reuse the npm cache to speed things up)
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
 
+      # 3. Install the exact package versions from package-lock.json
       - name: Install packages
         run: npm ci
 
+      # 4. Check types and create the production build in the dist folder
       - name: Build the website
         run: npm run build
 
-      - name: Show what GitHub sends
-        run: |
-          TOKEN=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sts.amazonaws.com" | jq -r .value)
-          echo "$TOKEN" | cut -d. -f2 | python3 -c "import sys,base64,json;s=sys.stdin.read().strip();s+='='*(-len(s)%4);d=json.loads(base64.urlsafe_b64decode(s));print('sub =',d['sub']);print('aud =',d['aud'])"
-
+      # 5. Log in to AWS using an IAM role (stored as a GitHub secret)
       - name: Log in to AWS
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
 
+      # 6. Copy the build to S3; --delete removes old files that no longer exist
       - name: Upload to S3
         run: aws s3 sync ${{ env.BUILD_DIR }}/ s3://${{ env.S3_BUCKET }} --delete
 
+      # 7. Clear CloudFront's cache so visitors get the new version
       - name: Tell CloudFront to show the new version
         run: |
           aws cloudfront create-invalidation \

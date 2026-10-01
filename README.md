@@ -2,15 +2,18 @@
 
 # GameVerse
 
-**GameVerse is a game discovery app using React, TypeScript, and React Query. It lets users browse, search, and filter games with a modern UI and external API integration.**
+**A game discovery app built with React, TypeScript, and React Query. Browse, search, and filter thousands of games with a modern, responsive UI.**
 
-[Live Demo](https://gameverse.shahzadtariq.com/) · [Report a Bug](https://github.com/Shaz-gill/react-typescript-game-verse/issues) · [Request a Feature](https://github.com/Shaz-gill/react-typescript-game-verse/issues)
+[Live Demo](https://gameverse.shahzadtariq.com/) · [Report a Bug](https://github.com/Shaz-gill/gameverse/issues) · [Request a Feature](https://github.com/Shaz-gill/gameverse/issues)
 
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.9-3178C6?logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-4-646CFF?logo=vite&logoColor=white)
 ![Chakra UI](https://img.shields.io/badge/Chakra_UI-2-319795?logo=chakraui&logoColor=white)
 ![React Query](https://img.shields.io/badge/React_Query-4-FF4154?logo=reactquery&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-S3_%7C_CloudFront-FF9900?logo=amazonaws&logoColor=white)
+
+![GameVerse home page](docs/screenshots/home.jpg)
 
 </div>
 
@@ -23,88 +26,85 @@
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Architecture](#architecture)
+- [Infrastructure and Deployment](#infrastructure-and-deployment)
 - [Getting Started](#getting-started)
 - [Available Scripts](#available-scripts)
 - [Project Structure](#project-structure)
 - [Security Considerations](#security-considerations)
 - [Roadmap](#roadmap)
+- [Author](#author)
 - [Acknowledgements](#acknowledgements)
 
 ---
 
 ## Overview
 
-GameVerse lets users browse, search, and filter thousands of video games using data from the [RAWG.io API](https://rawg.io/apidocs), one of the largest gaming databases available. Each game has a dedicated detail page with descriptions, attributes, trailers, screenshots, and store links.
+GameVerse lets users browse, search, and filter thousands of video games using data from the [RAWG.io API](https://rawg.io/apidocs), one of the largest gaming databases available. Each game has a dedicated detail page with a description, attributes, trailers, screenshots, and store links.
 
-**Live demo:** [gameverse.shahzadtariq.com](https://gameverse.shahzadtariq.com/).
+The project demonstrates a production-style frontend architecture: server state is managed by TanStack React Query, client state by Zustand, and the interface is built with Chakra UI for an accessible, responsive experience with light and dark modes. It is deployed to AWS with an automated CI/CD pipeline.
 
-The project demonstrates a production-style frontend architecture: server state is managed by TanStack React Query, client state by Zustand, and the interface is built with Chakra UI for an accessible, responsive experience with light and dark modes.
+> **Project status:** This repository contains the **frontend**. An AWS serverless backend is in progress and will live in a separate repository.
 
 ---
 
 ## Screenshots
 
-### Home Page
+### Home
 
-<!-- Add screenshot: home page with game grid -->
-![Home Page](docs/screenshots/home.png)
+![Home page](docs/screenshots/home.jpg)
 
 ### Filtering and Sorting
 
-<!-- Add screenshot: genre list, platform dropdown, and sort selector in use -->
-![Filtering and Sorting](docs/screenshots/filtering-and-sorting.png)
+![Filtering and sorting](docs/screenshots/filters.jpg)
 
-### Game Detail Page
+### Game Details
 
-<!-- Add screenshot: detail page with description and attributes -->
-![Game Detail Page](docs/screenshots/game-detail.png)
+![Game detail page](docs/screenshots/game-detail.jpg)
 
 ### Trailers, Screenshots and Stores
 
-<!-- Add screenshot: media and store sections of the detail page -->
-![Media and Stores](docs/screenshots/media-stores.png)
+![Trailers, screenshots and stores](docs/screenshots/media-stores.jpg)
 
 ### Dark and Light Mode
 
-<!-- Add screenshot: side-by-side of both color modes -->
-![Color Modes](docs/screenshots/color-modes.png)
+![Dark and light mode](docs/screenshots/color-modes.jpg)
 
-### Mobile View
+### Mobile
 
-<!-- Add screenshot: responsive layout on a phone viewport -->
-![Mobile View](docs/screenshots/mobile.png)
+<img src="docs/screenshots/mobile.jpg" alt="Mobile layout" width="320" />
 
 ---
 
 ## Features
 
-- **Game Discovery**: Browse a large catalog of games as a responsive card grid, with platform icons and critic scores.
+- **Game Discovery**: Browse a large catalog as a responsive card grid with platform icons and critic scores.
 - **Filtering**: Narrow results by genre and platform. Filters apply immediately and are reflected in the page heading.
 - **Search**: Search the full catalog by title.
 - **Sorting**: Order results by relevance, date added, name, release date, popularity, or average rating.
-- **Infinite Scrolling**: Additional results load progressively as the user scrolls, following RAWG's pagination.
-- **Game Detail Pages**: Dedicated routes (`/games/:slug`) with an expandable description, game attributes, trailers, screenshots, and store links.
-- **Light and Dark Mode**: Built-in color mode switch.
-- **Responsive Design**: Optimized for mobile, tablet, and desktop, including a genre drawer on smaller screens.
-- **Loading and Error States**: Skeleton placeholders while loading and a dedicated error page for invalid routes.
-- **Efficient Data Fetching**: Automatic caching, background refetching, and request deduplication through React Query.
+- **Infinite Scrolling**: More games load as you scroll, with skeleton cards shown while the next page loads.
+- **Game Detail Pages**: Dedicated routes (`/games/:slug`) with an expandable description, attributes, tags, trailers, screenshots, and store links.
+- **Light and Dark Mode**: Built-in color mode switch, dark by default.
+- **Responsive Design**: Works on mobile, tablet, and desktop, with a genre drawer on smaller screens.
+- **Loading, Empty and Error States**: Skeleton placeholders, a friendly "no results" message with a reset action, a retry button on failed requests, and a dedicated error page for invalid routes.
+- **Efficient Data Fetching**: Caching, background refetching, and request deduplication through React Query.
 
 ---
 
 ## Tech Stack
 
-| Layer             | Technology           | Version |
-| ----------------- | -------------------- | ------- |
-| UI Framework      | React                | 18      |
-| Language          | TypeScript           | 4.9     |
-| Build Tool        | Vite                 | 4       |
-| Component Library | Chakra UI            | 2       |
-| Server State      | TanStack React Query | 4       |
-| Client State      | Zustand              | 4       |
-| Animations        | Framer Motion        | 12      |
-| Routing           | React Router DOM     | 6       |
-| HTTP Client       | Axios                | 1       |
-| Data Source       | RAWG.io REST API     | n/a     |
+| Layer             | Technology                          |
+| ----------------- | ----------------------------------- |
+| UI Framework      | React 18                            |
+| Language          | TypeScript 4.9                      |
+| Build Tool        | Vite 4                              |
+| Component Library | Chakra UI 2                         |
+| Server State      | TanStack React Query 4              |
+| Client State      | Zustand 4                           |
+| Routing           | React Router DOM 6                  |
+| HTTP Client       | Axios                               |
+| Data Source       | RAWG.io REST API                    |
+| Hosting           | AWS S3, CloudFront and Route 53     |
+| CI/CD             | GitHub Actions                      |
 
 ---
 
@@ -132,24 +132,56 @@ The project demonstrates a production-style frontend architecture: server state 
 
 ---
 
+## Infrastructure and Deployment
+
+This repository is the frontend. It is built into static files and hosted on AWS, with GitHub Actions deploying every push to `master`. An AWS serverless backend is in progress in a separate repository.
+
+### How it all fits together
+
+```
+Visitor → gameverse.shahzadtariq.com
+            │
+            ▼
+      Route 53 (DNS)          "Where is this website?"
+            │  A record (Alias)
+            ▼
+      CloudFront (CDN)        HTTPS, caching, copies near every visitor (US, AU, etc.)
+            │  private access (OAC)
+            ▼
+      S3 bucket               Stores the built files (index.html, assets/)
+
+GitHub push → GitHub Actions → build → upload to S3 → clear CloudFront cache
+```
+
+| Component      | Role                                                                 |
+| -------------- | -------------------------------------------------------------------- |
+| Route 53       | DNS: points the custom domain to CloudFront                          |
+| CloudFront     | CDN: serves the site over HTTPS from locations close to the visitor  |
+| S3 (private)   | Stores the built files, readable only by CloudFront through OAC      |
+| GitHub Actions | Builds the app, syncs `dist/` to S3, and invalidates the CDN cache   |
+
+The workflow lives in [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) and signs in to AWS through an IAM role, so no long-lived AWS keys are stored in GitHub.
+
+---
+
 ## Getting Started
 
-Follow these steps to run GameVerse on your machine.
+Follow these steps to run GameVerse locally.
 
 ### Prerequisites
 
-| Requirement | Version        | Check with       |
-| ----------- | -------------- | ---------------- |
-| Node.js     | 16 or higher   | `node --version` |
-| npm         | 8 or higher    | `npm --version`  |
-| Git         | Any recent     | `git --version`  |
+| Requirement  | Version       | Check with       |
+| ------------ | ------------- | ---------------- |
+| Node.js      | 16 or higher  | `node --version` |
+| npm          | 8 or higher   | `npm --version`  |
+| Git          | Any recent    | `git --version`  |
 | RAWG API key | Free account  | See step 3       |
 
 ### Step 1: Clone the repository
 
 ```sh
-git clone https://github.com/Shaz-gill/react-typescript-game-verse.git
-cd react-typescript-game-verse
+git clone https://github.com/Shaz-gill/gameverse.git
+cd gameverse
 ```
 
 ### Step 2: Install dependencies
@@ -176,7 +208,7 @@ const axiosInstance = axios.create({
 });
 ```
 
-> The key is currently set in source rather than read from an environment variable, so do not commit your own key to a public repository. See [Security Considerations](#security-considerations) and the [Roadmap](#roadmap).
+> The key is currently set in source, so do not commit your own key to a public repository. See [Security Considerations](#security-considerations).
 
 ### Step 5: Start the development server
 
@@ -194,33 +226,24 @@ Open [http://localhost:5173](http://localhost:5173). The page reloads automatica
 
 If the grid shows a "Couldn't load games" message, check that your API key is valid and that you are online.
 
-### Build for production
-
-```sh
-npm run build     # type-check with tsc, then build into dist/
-npm run preview   # serve the production build locally
-```
-
-The output in `dist/` can be served by any static hosting provider.
-
 ### Troubleshooting
 
-| Problem                          | Fix                                                                 |
-| -------------------------------- | ------------------------------------------------------------------- |
-| `npm install` fails              | Confirm Node.js is 16 or higher, then delete `node_modules` and retry |
-| Port 5173 already in use         | Stop the other process, or run `npm run dev -- --port 3000`         |
-| "Couldn't load games" error      | Check the API key in `src/services/api-clients.ts` and your network |
-| Build fails with type errors     | Run `npm run build` and fix the errors `tsc` reports                |
+| Problem                      | Fix                                                                   |
+| ---------------------------- | --------------------------------------------------------------------- |
+| `npm install` fails          | Confirm Node.js is 16 or higher, then delete `node_modules` and retry |
+| Port 5173 already in use     | Stop the other process, or run `npm run dev -- --port 3000`           |
+| "Couldn't load games" error  | Check the API key in `src/services/api-clients.ts` and your network   |
+| Build fails with type errors | Run `npm run build` and fix the errors `tsc` reports                  |
 
 ---
 
 ## Available Scripts
 
-| Command           | Description                                          |
-| ----------------- | ---------------------------------------------------- |
-| `npm run dev`     | Start the Vite development server                    |
-| `npm run build`   | Type-check with `tsc`, then build for production     |
-| `npm run preview` | Serve the production build locally                   |
+| Command           | Description                                      |
+| ----------------- | ------------------------------------------------ |
+| `npm run dev`     | Start the Vite development server                |
+| `npm run build`   | Type-check with `tsc`, then build into `dist/`   |
+| `npm run preview` | Serve the production build locally               |
 
 ---
 
@@ -244,20 +267,32 @@ src/
 
 ## Security Considerations
 
-The RAWG API key is currently included in the client bundle, so it is visible to anyone using the live site. This is acceptable for a demo project but is not suitable for production. To harden it:
+The RAWG API key is currently included in the client bundle, so it is visible to anyone using the live site. This is acceptable for a demo project but is not suitable for production. The serverless backend that is in progress is intended to fix this by:
 
-- Proxy all RAWG requests through a backend service.
-- Store the API key as a server-side environment variable, never exposing it to the client.
-- Add rate limiting and request validation on the server layer.
+- Proxying all RAWG requests through a backend, so the browser never sees the key.
+- Storing the API key as a server-side secret.
+- Adding rate limiting and request validation on the server layer.
 
 ---
 
 ## Roadmap
 
-- [ ] Load the API key from a `VITE_RAWG_API_KEY` environment variable
-- [ ] Debounce search input to reduce API calls
-- [ ] Add automated tests and a linter
-- [ ] Add a backend proxy so the API key stays server-side
+- [x] Responsive UI with light and dark mode
+- [x] Infinite scrolling with skeleton loading
+- [x] Game detail pages with trailers, screenshots, and store links
+- [x] Hosting on AWS (S3, CloudFront, Route 53) with automated CI/CD
+- [ ] AWS serverless backend in a separate repository, to keep the API key server-side
+- [ ] Automated tests and a linter
+- [ ] Keep filters in the URL so filtered views can be shared
+
+---
+
+## Author
+
+**Shahzad Tariq**
+
+- GitHub: [@Shaz-gill](https://github.com/Shaz-gill)
+- Live project: [gameverse.shahzadtariq.com](https://gameverse.shahzadtariq.com/)
 
 ---
 
