@@ -34,7 +34,7 @@ const NavBar = () => {
         maxW="1600px"
         mx="auto"
       >
-        <Link to="/" aria-label="GameVerse home" style={{ flexShrink: 0 }}>
+        <Link to="/" aria-label="GameVerse home" className="nav-logo-link">
           <Logo height={34} showWordmark={showWordmark} />
         </Link>
         <SearchInput />

@@ -62,8 +62,7 @@ const GameGrid = () => {
         next={() => fetchNextPage()}
         // Next-page skeletons are rendered inside the grid so they align with the cards
         loader={null}
-        // Default is overflow:auto, which would clip the enlarged hovered card
-        style={{ overflow: "visible" }}
+        className="game-grid-scroll"
       >
         <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} spacing={6}>
           {isLoading &&

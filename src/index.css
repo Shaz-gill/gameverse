@@ -1,3 +1,23 @@
 form {
   width: 100%;
 }
+
+.nav-logo-link {
+  flex-shrink: 0;
+}
+
+.search-form {
+  flex: 1;
+  min-width: 0;
+  max-width: 560px;
+}
+
+.game-trailer {
+  width: 100%;
+  border-radius: 16px;
+}
+
+/* Default is overflow:auto, which would clip the enlarged hovered card */
+.game-grid-scroll {
+  overflow: visible !important;
+}

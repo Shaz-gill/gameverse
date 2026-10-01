@@ -1,5 +1,6 @@
 import { keyframes } from "@emotion/react";
 import {
+  Box,
   IconButton,
   usePrefersReducedMotion,
   useColorMode,
@@ -24,15 +25,14 @@ const ColorModeSwitch = () => {
     <IconButton
       aria-label={isLight ? "Switch to dark mode" : "Switch to light mode"}
       icon={
-        <span
+        <Box
+          as="span"
           key={colorMode}
-          style={{
-            display: "flex",
-            animation: reduceMotion ? undefined : `${spinIn} 0.35s ease-out`,
-          }}
+          display="flex"
+          animation={reduceMotion ? undefined : `${spinIn} 0.35s ease-out`}
         >
           {isLight ? <FaMoon /> : <FaSun />}
-        </span>
+        </Box>
       }
       onClick={toggleColorMode}
       variant="unstyled"

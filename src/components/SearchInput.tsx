@@ -40,7 +40,7 @@ const SearchInput = () => {
 
   return (
     <form
-      style={{ flex: 1, minWidth: 0, maxWidth: "560px" }}
+      className="search-form"
       onSubmit={(event) => {
         event.preventDefault();
         setSearchText(text);
